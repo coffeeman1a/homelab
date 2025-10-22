@@ -24,7 +24,6 @@ kind: HelmRelease
           kind: HelmRepository
           name: longhorn
           namespace: flux-system
-
     install:
       createNamespace: false
     upgrade:
