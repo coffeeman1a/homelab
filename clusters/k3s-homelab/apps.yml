@@ -7,7 +7,7 @@ spec:
   dependsOn:
     - name: infra
   interval: 2m
-  prine: true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
