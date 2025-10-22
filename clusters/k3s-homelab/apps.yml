@@ -1,0 +1,15 @@
+apiVersion: kustomize.tookit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra
+  interval: 2m
+  prine: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./clusters/k3s-homelab/apps
+  timeout: 2m
