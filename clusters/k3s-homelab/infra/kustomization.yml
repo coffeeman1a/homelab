@@ -1,0 +1,8 @@
+# clusters/k3s-home/infra/kustomization.yml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # HelmRepository and HelmRelease for Longhorn
+  - longhorn-helm.yml
+
