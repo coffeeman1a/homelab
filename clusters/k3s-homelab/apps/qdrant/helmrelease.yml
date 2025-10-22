@@ -16,10 +16,10 @@ spec:
   targetNamespace: qdrant
   install:
     createNamespace: true
+    disableHooks: true
+  upgrade:
+    disableHooks: true
   values:
-    config:
-      service:
-        enable_tls: false
     replicaCount: 1
     service:
       type: ClusterIP
