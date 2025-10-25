@@ -4,5 +4,5 @@ kind: Kustomization
 
 resources:
   # HelmRepository and HelmRelease for Longhorn
-  - longhorn-helm.yml
+  - longhorn-helm.yaml
 
