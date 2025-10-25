@@ -35,9 +35,9 @@ spec:
       size: 10Gi
       storageClassName: longhorn
     
-    config:
-      service:
-        enable_tls: false
+    # config:
+    #   service:
+    #     enable_tls: false
 
   #   resources:
   #     requests:
