@@ -18,7 +18,7 @@ spec:
     createNamespace: true
     remediation:
       retries: 3
-  updrade:
+  upgrade:
     remediation:
       retries: 3
   
