@@ -5,3 +5,4 @@ resources:
   - helmrepo.yaml
   - helmrelease-controller.yaml
   - github-app-secret.yaml
+  - helmrelease-runners.yaml
