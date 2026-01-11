@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: arc-oci
+  namespace: arc-system
+spec:
+  type: oci
+  interval: 1h
+  url: oci://ghcr.io/actions/actions-runner-controller-charts
