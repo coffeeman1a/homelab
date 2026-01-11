@@ -4,7 +4,7 @@ metadata:
   name: arc
   namespace: flux-system
 spec:
-  path: ./infra/arc
+  path: ./clusters/k3s-homelab/infra/arc
   sourceRef:
     kind: GitRepository
     name: flux-system
