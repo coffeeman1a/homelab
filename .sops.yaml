@@ -1,0 +1,4 @@
+creation_rules:
+  - path_regex: clusters/.*/infra/.*
+    encrypted_regex: "^(data|stringData)$"
+    age: age192wmc29nuyt8c0q0ql78qyftdjumj05c4ehxkk7je6hg855huycs02su4t
