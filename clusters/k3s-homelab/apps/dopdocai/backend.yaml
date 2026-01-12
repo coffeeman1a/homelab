@@ -1,0 +1,255 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dopdoc-ingestion-service
+  namespace: dopdocai
+  labels:
+    app: dopdoc-ingestion-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dopdoc-ingestion-service
+  template:
+    metadata:
+      labels:
+        app: dopdoc-ingestion-service
+    spec:
+      containers:
+        - name: ingestion-service
+          image: docker.io/your-dockerhub-username/dopdoc-ingestion-service:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: INGEST_REPOS_SERVICE_URL
+              value: http://dopdoc-repos-service:9000
+            - name: INGEST_QDRANT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: ingest_qdrant_url
+            - name: INGEST_QDRANT_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: ingest_qdrant_api_key
+            - name: INGEST_HOST
+              value: 0.0.0.0
+            - name: INGEST_PORT
+              value: "8000"
+            - name: INGEST_JINA_MODEL
+              value: jinaai/jina-code-embeddings-0.5b
+            - name: INGEST_MAX_TOKENS
+              value: "512"
+            - name: INGEST_OVERLAP
+              value: "64"
+            - name: INGEST_VECTOR_SIZE
+              value: "896"
+            - name: INGEST_QDRANT_BATCH_SIZE
+              value: "64"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dopdoc-ingestion-service
+  namespace: dopdocai
+spec:
+  selector:
+    app: dopdoc-ingestion-service
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dopdoc-repos-service
+  namespace: dopdocai
+  labels:
+    app: dopdoc-repos-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dopdoc-repos-service
+  template:
+    metadata:
+      labels:
+        app: dopdoc-repos-service
+    spec:
+      containers:
+        - name: repos-service
+          image: docker.io/your-dockerhub-username/dopdoc-repos-service:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: REPOS_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: repos_database_url
+            - name: REPOS_DB_SCHEMA
+              value: repos
+            - name: REPOS_HOST
+              value: 0.0.0.0
+            - name: REPOS_PORT
+              value: "9000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dopdoc-repos-service
+  namespace: dopdocai
+spec:
+  selector:
+    app: dopdoc-repos-service
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dopdoc-chats-service
+  namespace: dopdocai
+  labels:
+    app: dopdoc-chats-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dopdoc-chats-service
+  template:
+    metadata:
+      labels:
+        app: dopdoc-chats-service
+    spec:
+      containers:
+        - name: chats-service
+          image: docker.io/your-dockerhub-username/dopdoc-chats-service:latest
+          ports:
+            - containerPort: 9100
+          env:
+            - name: CHATS_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: chats_database_url
+            - name: CHATS_DB_SCHEMA
+              value: chats
+            - name: CHATS_REPOS_SERVICE_URL
+              value: http://dopdoc-repos-service:9000
+            - name: CHATS_INGESTION_SERVICE_URL
+              value: http://dopdoc-ingestion-service:8000
+            - name: CHATS_HOST
+              value: 0.0.0.0
+            - name: CHATS_PORT
+              value: "9100"
+            - name: CHATS_LLM_ROUTER_API
+              value: https://openrouter.ai/api/v1/chat/completions
+            - name: CHATS_LLM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: chats_llm_api_key
+            - name: CHATS_LLM_MODEL
+              value: deepseek/deepseek-v3.2
+            - name: CHATS_LLM_TEMPERATURE
+              value: "0.5"
+            - name: CHATS_LLM_MAX_TOKENS
+              value: "512"
+            - name: CHATS_LLM_HISTORY_LIMIT
+              value: "20"
+            - name: CHATS_LLM_DEFAULT_SYSTEM_PROMPT
+              value: You are a helpful assistant.
+            - name: CHATS_RAG_TOP_K
+              value: "8"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dopdoc-chats-service
+  namespace: dopdocai
+spec:
+  selector:
+    app: dopdoc-chats-service
+  ports:
+    - name: http
+      port: 9100
+      targetPort: 9100
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dopdoc-auth-service
+  namespace: dopdocai
+  labels:
+    app: dopdoc-auth-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dopdoc-auth-service
+  template:
+    metadata:
+      labels:
+        app: dopdoc-auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: docker.io/your-dockerhub-username/dopdoc-auth-service:latest
+          ports:
+            - containerPort: 9200
+          env:
+            - name: HTTP_ADDR
+              value: "9200"
+            - name: DB_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: auth_db_dsn
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: auth_jwt_secret
+            - name: REFRESH_PEPPER
+              valueFrom:
+                secretKeyRef:
+                  name: dopdocai-secrets
+                  key: auth_refresh_pepper
+            - name: DOMAIN
+              value: dopdocai.lab
+            - name: SECURE
+              value: "false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dopdoc-auth-service
+  namespace: dopdocai
+spec:
+  selector:
+    app: dopdoc-auth-service
+  ports:
+    - name: http
+      port: 9200
+      targetPort: 9200
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dopdocai-secrets
+  namespace: dopdocai
+type: Opaque
+stringData:
+  ingest_qdrant_url: "http://qdrant:6333"
+  ingest_qdrant_api_key: ""
+  repos_database_url: "postgresql+psycopg://dopdoc:dopdoc@postgres:5432/dopdoc"
+  chats_database_url: "postgresql+psycopg://dopdoc:dopdoc@postgres:5432/dopdoc"
+  chats_llm_api_key: ""
+  auth_db_dsn: "postgres://dopdoc:dopdoc@postgres:5432/auth_db"
+  auth_jwt_secret: "secret"
+  auth_refresh_pepper: "pepper"

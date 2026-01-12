@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dopdocai-protected
+  namespace: dopdocai
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`api.dopdocai.lab`) && PathPrefix(`/repos`)
+      kind: Rule
+      priority: 1
+      middlewares:
+        - name: auth-forward
+      services:
+        - name: dopdoc-repos-service
+          port: 9000
+    - match: Host(`api.dopdocai.lab`) && PathPrefix(`/ingest`)
+      kind: Rule
+      priority: 1
+      middlewares:
+        - name: auth-forward
+      services:
+        - name: dopdoc-ingestion-service
+          port: 8000
+    - match: Host(`api.dopdocai.lab`) && PathPrefix(`/chats`)
+      kind: Rule
+      priority: 1
+      middlewares:
+        - name: auth-forward
+      services:
+        - name: dopdoc-chats-service
+          port: 9100   
