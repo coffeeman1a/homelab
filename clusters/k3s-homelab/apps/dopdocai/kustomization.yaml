@@ -5,3 +5,4 @@ resources:
   - ./ingressroute-protected.yaml
   - ./ingressroute-public.yaml
   - ./middleware.yaml
+  - ./ns.yaml
