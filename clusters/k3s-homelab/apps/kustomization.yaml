@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - ./longhorn-ui
   - ./qdrant     
-  # - ./dopdocai
+  - ./dopdocai
