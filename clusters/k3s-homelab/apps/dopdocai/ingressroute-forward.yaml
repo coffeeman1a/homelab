@@ -1,17 +1,17 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ingressroute-protected
-  namespace: my-namespace
+  name: dopdocai-route-protected
+  namespace: dopdocai
 spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`myapp.lab`) && PathPrefix(`/`)
+    - match: Host(`dopdocai.lab`) && PathPrefix(`/`)
       kind: Rule
       priority: 1
       middlewares:
         - name: auth-forward
       services:
-        - name: my-app
+        - name: dopdocai
           port: 80
