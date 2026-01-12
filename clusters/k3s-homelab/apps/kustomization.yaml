@@ -4,4 +4,3 @@ resources:
   - ./longhorn-ui
   - ./qdrant     
   - ./dopdocai
-  - ./postgres

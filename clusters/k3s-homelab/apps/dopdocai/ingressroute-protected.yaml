@@ -11,7 +11,7 @@ spec:
       kind: Rule
       priority: 1
       middlewares:
-        - name: auth-forward
+        - name: dopdocai-auth-forward
       services:
         - name: dopdoc-repos-service
           port: 9000
@@ -19,7 +19,7 @@ spec:
       kind: Rule
       priority: 1
       middlewares:
-        - name: auth-forward
+        - name: dopdocai-auth-forward
       services:
         - name: dopdoc-ingestion-service
           port: 8000
@@ -27,7 +27,7 @@ spec:
       kind: Rule
       priority: 1
       middlewares:
-        - name: auth-forward
+        - name: dopdocai-auth-forward
       services:
         - name: dopdoc-chats-service
           port: 9100   
