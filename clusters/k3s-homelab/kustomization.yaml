@@ -4,4 +4,3 @@ resources:
   - ./flux-system
   - ./infra.yaml
   - ./apps.yaml
-  - ./arc.yaml
