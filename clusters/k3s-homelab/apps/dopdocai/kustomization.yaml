@@ -6,4 +6,3 @@ resources:
   - ./ingressroute-public.yaml
   - ./middleware.yaml
   - ./ns.yaml
-  - ./postgres.yaml
