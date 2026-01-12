@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ingestion-service
-          image: docker.io/your-dockerhub-username/dopdoc-ingestion-service:latest
+          image: coff1/dopdoc-ingestion-service:latest
           ports:
             - containerPort: 8000
           env:
@@ -75,7 +75,7 @@ spec:
     spec:
       containers:
         - name: repos-service
-          image: docker.io/your-dockerhub-username/dopdoc-repos-service:latest
+          image: coff1/dopdoc-repos-service:latest
           ports:
             - containerPort: 9000
           env:
@@ -123,7 +123,7 @@ spec:
     spec:
       containers:
         - name: chats-service
-          image: docker.io/your-dockerhub-username/dopdoc-chats-service:latest
+          image: coff1/dopdoc-chats-service:latest
           ports:
             - containerPort: 9100
           env:
@@ -194,7 +194,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: docker.io/your-dockerhub-username/dopdoc-auth-service:latest
+          image: coff1/dopdoc-auth-service:latest
           ports:
             - containerPort: 9200
           env:
