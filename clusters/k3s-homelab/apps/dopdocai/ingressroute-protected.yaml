@@ -7,7 +7,8 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`api.dopdocai.lab`) && PathPrefix(`/repos`)
+    - match: Host(`api.dopdocai.lab`) && (PathPrefix(`/repos`) || PathPrefix(`/repo-index-states`))
+      kind: Rule
       kind: Rule
       priority: 1
       middlewares:
@@ -15,7 +16,7 @@ spec:
       services:
         - name: dopdoc-repos-service
           port: 9000
-    - match: Host(`api.dopdocai.lab`) && PathPrefix(`/ingest`)
+    - match: Host(`api.dopdocai.lab`) && (PathPrefix(`/ingest`) || PathPrefix(`/rag`))
       kind: Rule
       priority: 1
       middlewares:
