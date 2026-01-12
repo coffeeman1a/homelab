@@ -4,3 +4,4 @@ resources:
   - ./backend.yaml
   - ./ingressroute-protected.yaml
   - ./ingressroute-public.yaml
+  - ./Middleware.yaml
