@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`api.dopdocai.lab`) && (PathPrefix(`/v1/auth`)
+    - match: Host(`api.dopdocai.lab`) && PathPrefix(`/v1/auth`)
       kind: Rule
       priority: 100
       services:
