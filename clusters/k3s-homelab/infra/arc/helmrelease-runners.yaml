@@ -21,4 +21,4 @@ spec:
 
     runnerScaleSetName: "k3s-arc"
     minRunners: 0
-    maxRunners: 5
+    maxRunners: 3
