@@ -22,15 +22,3 @@ spec:
     runnerScaleSetName: "k3s-arc"
     minRunners: 0
     maxRunners: 5
-
-    template:
-      spec:
-        containers:
-          - name: runner
-            resources:
-              requests:
-                cpu: "500m"
-                memory: "1Gi"
-              limits:
-                cpu: "2"
-                memory: "4Gi"
