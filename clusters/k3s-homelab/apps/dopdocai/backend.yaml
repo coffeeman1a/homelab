@@ -28,11 +28,6 @@ spec:
                 secretKeyRef:
                   name: dopdocai-secrets
                   key: ingest_qdrant_url
-            - name: INGEST_QDRANT_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: dopdocai-secrets
-                  key: ingest_qdrant_api_key
             - name: INGEST_HOST
               value: 0.0.0.0
             - name: INGEST_PORT
@@ -237,19 +232,3 @@ spec:
     - name: http
       port: 9200
       targetPort: 9200
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: dopdocai-secrets
-  namespace: dopdocai
-type: Opaque
-stringData:
-  ingest_qdrant_url: "http://qdrant:6333"
-  ingest_qdrant_api_key: ""
-  repos_database_url: "postgresql+psycopg://dopdoc:dopdoc@postgres:5432/dopdoc"
-  chats_database_url: "postgresql+psycopg://dopdoc:dopdoc@postgres:5432/dopdoc"
-  chats_llm_api_key: ""
-  auth_db_dsn: "postgres://dopdoc:dopdoc@postgres:5432/auth_db"
-  auth_jwt_secret: "secret"
-  auth_refresh_pepper: "pepper"
