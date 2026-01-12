@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: auth-forward
+  namespace: dopdocai
+spec:
+  forwardAuth:
+    address: http://auth-service.dopdocai.svc.cluster.local:8080/v1/auth/forward
+    trustForwardHeader: true
+    # authResponseHeaders:
+    #   - X-User
+    #   - X-Email
+    #   - X-Token
