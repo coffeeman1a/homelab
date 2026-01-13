@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ingestion-service
-          image: coff1/dopdoc-ingestion-service:latest
+          image: coff1/dopdoc-ingestion-service:0.0.1
           ports:
             - containerPort: 8000
           env:
@@ -75,7 +75,7 @@ spec:
     spec:
       containers:
         - name: repos-service
-          image: coff1/dopdoc-repos-service:latest
+          image: coff1/dopdoc-repos-service:sha-03237bf
           ports:
             - containerPort: 9000
           env:
@@ -123,7 +123,7 @@ spec:
     spec:
       containers:
         - name: chats-service
-          image: coff1/dopdoc-chats-service:latest
+          image: coff1/dopdoc-chats-service:sha-03237bf
           ports:
             - containerPort: 9100
           env:
