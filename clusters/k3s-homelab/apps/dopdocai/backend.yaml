@@ -194,7 +194,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: coff1/dopdoc-auth-service:latest
+          image: coff1/dopdoc-auth-service:sha-6311430
           ports:
             - containerPort: 9200
           env:
