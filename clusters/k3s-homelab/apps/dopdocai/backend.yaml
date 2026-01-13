@@ -216,7 +216,7 @@ spec:
                   name: dopdocai-secrets
                   key: auth_refresh_pepper
             - name: DOMAIN
-              value: dopdocai.lab
+              value: localhost
             - name: SECURE
               value: "false"
 ---
